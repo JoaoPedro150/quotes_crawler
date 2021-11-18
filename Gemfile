@@ -5,6 +5,15 @@ ruby '2.7.4'
 
 gem 'mongoid', '~> 7.3.3'
 
+gem 'rswag-api'
+gem 'rswag-ui'
+gem 'nokogiri'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'rswag-specs'
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 # Use Puma as the app server

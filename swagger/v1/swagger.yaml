@@ -1,0 +1,37 @@
+---
+openapi: 3.0.1
+info:
+  title: Quotes Crawler
+  version: v1
+paths:
+  "/quotes":
+    get:
+      summary: list cached quotes
+      tags:
+      - Quotes
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete cached quotes
+      tags:
+      - Quotes
+      responses:
+        '200':
+          description: successful
+  "/quotes/{tag}":
+    parameters:
+    - name: tag
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: get quotes by tag
+      tags:
+      - Quotes
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: not found
