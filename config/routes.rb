@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  resources :users
   resources :tags
   resources :quotes
   delete 'quotes/' => 'quotes#destroy'
+  post 'auth/sign-in' => 'auth#sign_in'
+  post 'auth/sign-up' => 'auth#sign_up'
   
   mount Rswag::Ui::Engine => '/'
   mount Rswag::Api::Engine => '/'

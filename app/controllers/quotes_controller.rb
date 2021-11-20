@@ -1,12 +1,9 @@
-require 'nokogiri'
-require 'open-uri'
-
 class QuotesController < ApplicationController
+  before_action :authorize
+  
   # GET /quotes
   def index
-    render json: {
-      quotes: Quote.all.as_json(only: [:quote, :author, :author_about, :tags ])
-    }
+    render json: { quotes: Quote.all.as_json(only: [:quote, :author, :author_about, :tags ]) }
   end
 
   # DELETE /quotes
@@ -23,9 +20,7 @@ class QuotesController < ApplicationController
       quotes = fetch_quotes_by_tag(tag)
     end
 
-    render json: {
-      quotes: quotes.as_json(only: [:quote, :author, :author_about, :tags ])
-    }
+    render json: { quotes: quotes.as_json(only: [:quote, :author, :author_about, :tags ]) }
   end
 
   private

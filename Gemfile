@@ -8,6 +8,8 @@ gem 'mongoid', '~> 7.3.3'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'nokogiri'
+gem 'jwt'
+gem 'bcrypt'
 
 group :development, :test do
   gem 'rspec-rails'
