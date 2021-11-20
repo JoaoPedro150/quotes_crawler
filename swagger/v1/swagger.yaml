@@ -4,21 +4,116 @@ info:
   title: Quotes Crawler
   version: v1
 paths:
+  "/auth/sign-in":
+    post:
+      summary: Sign-in
+      tags:
+      - Auth
+      parameters: []
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authorization:
+                    type: string
+        '401':
+          description: Wrong username or password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+              - username
+              - password
+  "/auth/sign-up":
+    post:
+      summary: Sign-up
+      tags:
+      - Auth
+      parameters: []
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  authorization:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+              - username
+              - password
   "/quotes":
     get:
-      summary: list cached quotes
+      summary: List cached quotes
       tags:
       - Quotes
+      security:
+      - jwt: []
       responses:
         '200':
-          description: successful
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quotes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        author:
+                          type: string
+                        author_about:
+                          type: string
+                        quote:
+                          type: string
+                        tags:
+                          type: array
+                          items:
+                            type: string
     delete:
-      summary: delete cached quotes
+      summary: Delete cached quotes
       tags:
       - Quotes
+      security:
+      - jwt: []
       responses:
-        '200':
-          description: successful
+        '204':
+          description: Successful
   "/quotes/{tag}":
     parameters:
     - name: tag
@@ -27,11 +122,37 @@ paths:
       schema:
         type: string
     get:
-      summary: get quotes by tag
+      summary: Search quotes by tag
       tags:
       - Quotes
+      security:
+      - jwt: []
       responses:
         '200':
-          description: successful
-        '404':
-          description: not found
+          description: Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quotes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        author:
+                          type: string
+                        author_about:
+                          type: string
+                        quote:
+                          type: string
+                        tags:
+                          type: array
+                          items:
+                            type: string
+components:
+  securitySchemes:
+    jwt:
+      type: apiKey
+      name: authorization
+      in: header

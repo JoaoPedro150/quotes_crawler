@@ -4,34 +4,42 @@ RSpec.describe 'quotes', type: :request do
 
   path '/quotes' do
 
-    get('list cached quotes') do
+    get('List cached quotes') do
       tags 'Quotes'
+      security [ jwt: [] ]
+    
+      produces 'application/json'
       
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
+      response(200, 'Successful') do
+        schema type: :object,
+          properties: {
+            quotes: { 
+              type: :array,
+              items: {
+                type: :object,
+                properties: {
+                  author: { type: :string },
+                  author_about: { type: :string },
+                  quote: { type: :string },
+                  tags: { 
+                    type: :array,
+                    items: {
+                      type: :string
+                    }
+                  }
+                }
+              }
             }
           }
-        end
         run_test!
       end
     end
 
-    delete('delete cached quotes') do
+    delete('Delete cached quotes') do
       tags 'Quotes'
+      security [ jwt: [] ]
       
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+      response(204, 'Successful') do
         run_test!
       end
     end
@@ -40,31 +48,33 @@ RSpec.describe 'quotes', type: :request do
   path '/quotes/{tag}' do
     parameter name: 'tag', in: :path, type: :string
 
-    get('get quotes by tag') do
+    get('Search quotes by tag') do
       tags 'Quotes'
+      security [ jwt: [] ]
 
-      response(200, 'successful') do
-        let(:tag) { 'tag' }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
+      produces 'application/json'
+      
+      response(200, 'Successful') do
+        schema type: :object,
+          properties: {
+            quotes: { 
+              type: :array,
+              items: {
+                type: :object,
+                properties: {
+                  author: { type: :string },
+                  author_about: { type: :string },
+                  quote: { type: :string },
+                  tags: { 
+                    type: :array,
+                    items: {
+                      type: :string
+                    }
+                  }
+                }
+              }
             }
           }
-        end
-        run_test!
-      end
-      response(404, 'not found') do
-        let(:tag) { 'tag' }
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
         run_test!
       end
     end

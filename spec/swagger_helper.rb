@@ -21,7 +21,16 @@ RSpec.configure do |config|
         title: 'Quotes Crawler',
         version: 'v1'
       },
-      paths: {}
+      paths: {},
+      components: {
+        securitySchemes: {
+          jwt: {
+            type: :apiKey,
+            name: 'authorization',
+            in: :header
+          }
+        }
+      }
     }
   }
 
