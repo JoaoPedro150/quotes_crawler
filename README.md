@@ -1,24 +1,18 @@
-# README
+# Quotes Crawler
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Web crawler que efetua buscas de frases no site <a href="http://quotes.toscrape.com/">Quotes to Scrape</a>.
 
-Things you may want to cover:
+## Requisitos
 
-* Ruby version
+- Ruby 2.7.4
+- Rails 6.1.4
+- MongoDB 5.0.3
 
-* System dependencies
+## Documentação
+ 
+Todos os endpoints estão documentados conforme a especificação OpenAPI 3.1, disponível em https://quotes-crawler.herokuapp.com.
 
-* Configuration
+### Segurança
 
-* Database creation
+Os endpoints ```/quotes``` são protegidos por um token de acesso (JWT). Para obtê-lo é necessário um usuário e senha, caso não tenha utilize o endpoint ```/auth/sign-up``` para se cadastrar ou ```/auth/sign-in``` para acessar. Ambos retornam um JWT válido por 5 minutos.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
