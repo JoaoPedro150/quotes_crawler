@@ -33,6 +33,18 @@ RSpec.describe 'quotes', type: :request do
           }
         run_test!
       end
+      response(401, 'Unauthorized') do
+        schema type: :object,
+          properties: {
+            errors: { 
+              type: :array,
+              items: {
+                type: :string 
+              }
+            }
+          }
+        run_test!
+      end
     end
 
     delete('Delete cached quotes') do
@@ -40,6 +52,18 @@ RSpec.describe 'quotes', type: :request do
       security [ jwt: [] ]
       
       response(204, 'Successful') do
+        run_test!
+      end
+      response(401, 'Unauthorized') do
+        schema type: :object,
+          properties: {
+            errors: { 
+              type: :array,
+              items: {
+                type: :string 
+              }
+            }
+          }
         run_test!
       end
     end
@@ -72,6 +96,18 @@ RSpec.describe 'quotes', type: :request do
                     }
                   }
                 }
+              }
+            }
+          }
+        run_test!
+      end
+      response(401, 'Unauthorized') do
+        schema type: :object,
+          properties: {
+            errors: { 
+              type: :array,
+              items: {
+                type: :string 
               }
             }
           }

@@ -105,6 +105,17 @@ paths:
                           type: array
                           items:
                             type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
     delete:
       summary: Delete cached quotes
       tags:
@@ -114,6 +125,8 @@ paths:
       responses:
         '204':
           description: Successful
+        '401':
+          description: Unauthorized
   "/quotes/{tag}":
     parameters:
     - name: tag
@@ -150,6 +163,17 @@ paths:
                           type: array
                           items:
                             type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
 components:
   securitySchemes:
     jwt:

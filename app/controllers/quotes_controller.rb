@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class QuotesController < ApplicationController
   before_action :authorize
   
